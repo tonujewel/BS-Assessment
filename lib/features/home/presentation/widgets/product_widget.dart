@@ -1,8 +1,9 @@
+import 'package:bs_assessment/core/utils/app_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/widgets/custom_network_image.dart';
 import '../../../../core/widgets/primary_container.dart';
-import '../../../details/presentation/pages/details_screen.dart';
 import '../../domain/entities/product_entity.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -17,14 +18,7 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimaryContainer(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailsScreen(
-              data: product,
-            ),
-          ),
-        );
+        context.push(AppConstant.details, extra: product);
       },
       child: Row(
         children: [

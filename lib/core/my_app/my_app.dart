@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../features/splash/screen/splash_screen.dart';
 import '../../main.dart';
+import '../router/app_router.dart';
 import '../theme/theme.dart';
 
 class MyApp extends StatefulWidget {
@@ -25,10 +25,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: AppThemes.lightTheme,
-      home: const SplashScreen(),
+      routerConfig: router,
+
+      // home: const SplashScreen(),
     );
   }
 }

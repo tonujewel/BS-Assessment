@@ -1,7 +1,8 @@
+import 'package:bs_assessment/core/utils/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../home/presentation/pages/home_screen.dart';
 import '../bloc/splash_bloc.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,8 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
         if (state is SplashLoaded) {
-          Navigator.pushAndRemoveUntil(
-              context, MaterialPageRoute(builder: (context) => const HomeScreen()), (route) => false);
+          context.go(AppConstant.home);
         }
       },
       child: Scaffold(
