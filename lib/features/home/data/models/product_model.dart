@@ -1,5 +1,19 @@
 import '../../domain/entities/product_entity.dart';
 
+class ProductResponse {
+  final List<ProductModel>? results;
+  final bool? success;
+
+  ProductResponse({this.results, this.success});
+
+  factory ProductResponse.fromJson(Map<String, dynamic> json) => ProductResponse(
+        results: json["results"] == null
+            ? []
+            : List<ProductModel>.from(json["results"]!.map((x) => ProductModel.fromJson(x))),
+        success: json["success"],
+      );
+}
+
 class ProductModel extends ProductEntity {
   const ProductModel({
     required super.id,
@@ -10,13 +24,13 @@ class ProductModel extends ProductEntity {
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        id: json["id"],
-        enTitle: json["enTitle"],
-        thumbImage: json["thumbImage"],
-        price: json["price"],
+        id: json["id"] ?? "",
+        enTitle: json["enTitle"] ?? "",
+        thumbImage: json["thumbImage"] ?? "",
+        price: json["price"] ?? 0,
         variations: json["variations"] == null
             ? []
-            : List<VariationEntity>.from(json["variations"].map((x) => VariationModel.fromJson(x))),
+            : List<VariationModel>.from(json["variations"].map((x) => VariationModel.fromJson(x))),
       );
 }
 
@@ -29,9 +43,9 @@ class VariationModel extends VariationEntity {
   });
 
   factory VariationModel.fromJson(Map<String, dynamic> json) => VariationModel(
-        variationName: json["variationName"],
-        price: json["price"],
-        sku: json["sku"],
-        qty: json[" qty"],
+        variationName: json["variationName"] ?? "",
+        price: json["price"] ?? 0,
+        sku: json["sku"] ?? "",
+        qty: json["qty"] ?? "",
       );
 }

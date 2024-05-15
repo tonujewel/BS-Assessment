@@ -1,8 +1,9 @@
+import 'dart:convert';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/networking/api_url.dart';
 import '../../../../core/networking/dio_client.dart';
-import '../../features/home/data/models/product_model.dart';
+import '../models/product_model.dart';
 
 abstract class HomeDataSrc {
   Future<List<ProductModel>> getProducts();
@@ -16,17 +17,11 @@ class HomeDataSrcImpl implements HomeDataSrc {
   @override
   Future<List<ProductModel>> getProducts() async {
     try {
-      final result = await client.get(url: UrlManager.baseUrl);
+      final result = await client.get(url: UrlManager.productListUrl);
 
-      if (result.statusCode != 200) {
-        throw ApiException(message: result.body, statusCode: result.statusCode);
-      }
+      final res = ProductResponse.fromJson(jsonDecode(json.encode(result)));
 
-      // return List<ProductModel>.from(jsonDecode(result.body) as List)
-      //     .map((userData) => ProductModel.fromJson(userData))
-      //     .toList();
-
-      return [];
+      return res.results ?? [];
     } on ApiException {
       rethrow;
     } catch (e) {

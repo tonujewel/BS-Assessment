@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../home/features/home/presentation/pages/home_screen.dart';
+import '../../home/presentation/pages/home_screen.dart';
 import '../bloc/splash_bloc.dart';
 
 class SplashScreen extends StatefulWidget {

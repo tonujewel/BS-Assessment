@@ -29,7 +29,7 @@ class DioClient {
               ),
               queryParameters: params)
           .timeout(const Duration(seconds: timeoutDuration));
-      printResponse(url, "${header ?? ""}", "", "$response");
+      // printResponse(url, "${header ?? ""}", "", "$response");
 
       return response.data;
     } catch (e) {
