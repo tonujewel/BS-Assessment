@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import '../utils/color_manager.dart';
 
 class AppThemes {
-  static const int _primaryColor = 0xFF252e43;
+  static const int _primaryColor = 0xFF169fda;
   static const MaterialColor primarySwatch = MaterialColor(_primaryColor, <int, Color>{
     50: Color(0xFFffffff),
-    100: Color(0xFFe9eaec),
-    200: Color(0xFFd3d5d9),
-    300: Color(0xFFbec0c7),
-    400: Color(0xFFa8abb4),
-    500: Color(0xFF9297a1),
-    600: Color(0xFF7c828e),
-    700: Color(0xFF666d7b),
-    800: Color(0xFF515869),
-    900: Color(0xFF3b4356),
+    100: Color(0xFFe8f5fb),
+    200: Color(0xFFd0ecf8),
+    300: Color(0xFFb9e2f4),
+    400: Color(0xFFa2d9f0),
+    500: Color(0xFF8bcfed),
+    600: Color(0xFF73c5e9),
+    700: Color(0xFF5cbce5),
+    800: Color(0xFF45b2e1),
+    900: Color(0xFF2da9de),
   });
 
   static final lightTheme = ThemeData(

@@ -1,3 +1,5 @@
+import 'package:bs_assessment/core/utils/app_extension.dart';
+import 'package:bs_assessment/core/widgets/primary_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/custom_network_image.dart';
@@ -15,14 +17,32 @@ class DetailsScreen extends StatelessWidget {
         title: const Text("Details"),
       ),
       body: ListView(
+        padding: const EdgeInsets.all(20),
         children: [
-          Hero(
-            tag: data.id,
-            child: CustomNetworkImage(
-              path: data.thumbImage,
+          PrimaryContainer(
+            child: Hero(
+              tag: data.id,
+              child: CustomNetworkImage(
+                path: data.thumbImage,
+                height: 300,
+              ),
             ),
           ),
-          Text(data.enTitle),
+          PrimaryContainer(
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                Text(
+                  data.enTitle,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  data.description.stripHtml(),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
