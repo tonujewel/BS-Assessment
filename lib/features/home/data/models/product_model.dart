@@ -21,12 +21,14 @@ class ProductModel extends ProductEntity {
     required super.thumbImage,
     required super.price,
     required super.variations,
+    required super.description,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["_id"] ?? "",
         enTitle: json["en_title"] ?? "",
         thumbImage: json["thumbImage"] ?? "",
+        description: json["description"] ?? "",
         price: json["price"] ?? 0,
         variations: json["variations"] == null
             ? []

@@ -4,6 +4,7 @@ class ProductEntity extends Equatable {
   final String id;
   final String enTitle;
   final String thumbImage;
+  final String description;
   final int price;
   final List<VariationEntity> variations;
 
@@ -13,6 +14,7 @@ class ProductEntity extends Equatable {
     required this.thumbImage,
     required this.price,
     required this.variations,
+    required this.description,
   });
 
   @override

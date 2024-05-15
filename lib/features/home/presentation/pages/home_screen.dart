@@ -24,13 +24,18 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("Home"),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        context.read<HomeBloc>().add(const GetProductEvent());
-      }),
       body: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is HomeErrorState) {
-            //
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+              action: SnackBarAction(
+                label: 'Undo',
+                onPressed: () {
+                  // Some code to undo the change.
+                },
+              ),
+            ));
           }
         },
         builder: (context, state) {

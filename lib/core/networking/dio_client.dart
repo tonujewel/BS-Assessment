@@ -22,14 +22,9 @@ class DioClient {
   }) async {
     try {
       var response = await Dio()
-          .get(url,
-              options: Options(
-                headers: header,
-                contentType: 'application/json',
-              ),
-              queryParameters: params)
+          .get(url, options: Options(headers: header, contentType: 'application/json'), queryParameters: params)
           .timeout(const Duration(seconds: timeoutDuration));
-      // printResponse(url, "${header ?? ""}", "", "$response");
+      printResponse(url, "${header ?? ""}", "", "$response");
 
       return response.data;
     } catch (e) {

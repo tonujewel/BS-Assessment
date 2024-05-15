@@ -1,9 +1,8 @@
-import 'package:bs_assessment/core/widgets/custom_network_image.dart';
-import 'package:bs_assessment/core/widgets/primary_container.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
+import '../../../../core/widgets/custom_network_image.dart';
+import '../../../../core/widgets/primary_container.dart';
+import '../../../details/presentation/pages/details_screen.dart';
 import '../../domain/entities/product_entity.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -17,12 +16,25 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimaryContainer(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailsScreen(
+              data: product,
+            ),
+          ),
+        );
+      },
       child: Row(
         children: [
           Expanded(
             flex: 2,
-            child: CustomNetworkImage(
-              path: product.thumbImage,
+            child: Hero(
+              tag: product.id,
+              child: CustomNetworkImage(
+                path: product.thumbImage,
+              ),
             ),
           ),
           const SizedBox(width: 20),
