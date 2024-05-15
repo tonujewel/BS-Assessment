@@ -25,7 +25,12 @@ class VariationEntity extends Equatable {
   final String sku;
   final String qty;
 
-  const VariationEntity({required this.variationName, required this.price, required this.sku, required this.qty});
+  const VariationEntity({
+    required this.variationName,
+    required this.price,
+    required this.sku,
+    required this.qty,
+  });
 
   @override
   List<Object?> get props => [variationName, price, sku, qty];
