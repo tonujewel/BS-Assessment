@@ -11,16 +11,16 @@ class HomeInitial extends HomeState {}
 
 class HomeLoading extends HomeState {}
 
-class HomeLoaded extends HomeState {
+class HomeLoadedState extends HomeState {
   final List<ProductEntity> products;
 
-  const HomeLoaded(this.products);
-   @override
+  const HomeLoadedState(this.products);
+  @override
   List<Object> get props => [products];
 }
 
-class HomeError extends HomeState {
-  const HomeError({required this.message});
+class HomeErrorState extends HomeState {
+  const HomeErrorState({required this.message});
 
   final String message;
 

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bs_assessment/features/home/domain/usecases/get_product_usecases.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,11 +22,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     try {
       result.fold(
-        (l) => emit(HomeError(message: l.message)),
-        (r) => emit(HomeLoaded(r)),
+        (l) => emit(HomeErrorState(message: l.message)),
+        (r) {
+          emit(HomeLoadedState(r));
+          log("message ${r[0].id} Rana");
+        },
       );
     } catch (e) {
-      const HomeError(message: "message");
+      const HomeErrorState(message: "message");
     }
   }
 }
