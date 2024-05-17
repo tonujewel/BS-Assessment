@@ -1,14 +1,13 @@
-import 'package:bs_assessment/core/utils/app_extension.dart';
-import 'package:bs_assessment/core/widgets/primary_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/custom_network_image.dart';
-import '../../../home/domain/entities/product_entity.dart';
+import '../../../../core/widgets/primary_container.dart';
+import '../../../home/domain/entities/repository_entity.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key, required this.data});
 
-  final ProductEntity data;
+  final RepositoryEntity data;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class DetailsScreen extends StatelessWidget {
             child: Hero(
               tag: data.id,
               child: CustomNetworkImage(
-                path: data.thumbImage,
+                path: data.owner.avatarUrl,
                 height: 300,
               ),
             ),
@@ -33,12 +32,12 @@ class DetailsScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 Text(
-                  data.enTitle,
+                  data.owner.login,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  data.description.stripHtml(),
+                  data.description,
                 ),
               ],
             ),

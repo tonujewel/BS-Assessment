@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:bs_assessment/features/home/data/models/repository_model.dart';
+
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/networking/api_url.dart';
 import '../../../../core/networking/dio_client.dart';
-import '../models/product_model.dart';
 
 abstract class HomeDataSrc {
-  Future<List<ProductModel>> getProducts();
+  Future<List<RepositoryModel>> getRepositories();
 }
 
 class HomeDataSrcImpl implements HomeDataSrc {
@@ -15,11 +16,11 @@ class HomeDataSrcImpl implements HomeDataSrc {
   HomeDataSrcImpl({required this.client});
 
   @override
-  Future<List<ProductModel>> getProducts() async {
+  Future<List<RepositoryModel>> getRepositories() async {
     try {
-      final result = await client.get(url: UrlManager.productListUrl);
+      final result = await client.get(url: UrlManager.searchUrl);
 
-      final res = ProductResponse.fromJson(jsonDecode(json.encode(result)));
+      final res = RepositoryResponse.fromJson(jsonDecode(json.encode(result)));
 
       return res.results ?? [];
     } on ApiException {

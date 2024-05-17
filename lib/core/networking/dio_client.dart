@@ -10,7 +10,7 @@ class DioClient {
 
   Map<String, dynamic>? header = {
     'Accept': 'application/json',
-    'Content-Type': 'application/json-patch+json',
+    'Content-Type': 'application/vnd.github+json',
   };
 
   //GET

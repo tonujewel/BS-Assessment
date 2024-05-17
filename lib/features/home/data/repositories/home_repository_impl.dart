@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure.dart';
 import '../../../../core/utils/typedef.dart';
-import '../../domain/entities/product_entity.dart';
+import '../../domain/entities/repository_entity.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../datasources/home_data_src.dart';
 
@@ -12,9 +12,9 @@ class HomeRepositoryImpl implements HomeRepository {
 
   HomeRepositoryImpl(this._dataSrc);
   @override
-  ResultFuture<List<ProductEntity>> getProducts() async {
+  ResultFuture<List<RepositoryEntity>> getRepositories() async {
     try {
-      final result = await _dataSrc.getProducts();
+      final result = await _dataSrc.getRepositories();
       return Right(result);
     } on ApiException catch (e) {
       return Left(ApiFailure.fromException(e));

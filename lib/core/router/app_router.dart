@@ -1,4 +1,4 @@
-import 'package:bs_assessment/features/home/domain/entities/product_entity.dart';
+import 'package:bs_assessment/features/home/domain/entities/repository_entity.dart';
 import 'package:bs_assessment/features/splash/screen/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,7 +19,7 @@ final router = GoRouter(
     GoRoute(
         path: AppConstant.details,
         builder: (context, state) {
-          final product = state.extra as ProductEntity;
+          final product = state.extra as RepositoryEntity;
           return DetailsScreen(data: product);
         }),
   ],

@@ -12,11 +12,11 @@ class HomeInitial extends HomeState {}
 class HomeLoading extends HomeState {}
 
 class HomeLoadedState extends HomeState {
-  final List<ProductEntity> products;
+  final List<RepositoryEntity> repositories;
 
-  const HomeLoadedState(this.products);
+  const HomeLoadedState(this.repositories);
   @override
-  List<Object> get props => [products];
+  List<Object> get props => [repositories];
 }
 
 class HomeErrorState extends HomeState {

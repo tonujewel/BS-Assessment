@@ -1,6 +1,6 @@
 import 'package:bs_assessment/core/networking/dio_client.dart';
 import 'package:bs_assessment/features/home/data/datasources/home_data_src.dart';
-import 'package:bs_assessment/features/home/domain/usecases/get_product_usecases.dart';
+import 'package:bs_assessment/features/home/domain/usecases/get_repository_usecases.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/home/data/repositories/home_repository_impl.dart';
@@ -15,7 +15,7 @@ Future<void> init() async {
     ..registerFactory(() => HomeBloc(useCases: sl()))
 
     // Use cases
-    ..registerLazySingleton(() => GetProductUseCases(sl()))
+    ..registerLazySingleton(() => GetRepositoryUseCases(sl()))
 
     // repositories
     ..registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(sl()))

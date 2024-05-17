@@ -1,3 +1,3 @@
 extension StringExtension on String {
-  String stripHtml() => replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), '');
+  // String stripHtml() => replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), '');
 }

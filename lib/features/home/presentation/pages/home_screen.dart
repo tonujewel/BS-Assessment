@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text("Flutter Repositories"),
       ),
       body: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {
@@ -32,16 +32,16 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         builder: (context, state) {
           if (state is HomeLoading) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (state is HomeLoadedState) {
             return ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              itemCount: state.products.length,
+              itemCount: state.repositories.length,
               itemBuilder: (_, index) {
                 return ProductWidget(
-                  product: state.products[index],
+                  data: state.repositories[index],
                 );
               },
             );
