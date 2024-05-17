@@ -10,18 +10,29 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetRepositoryUseCases useCases;
 
+  final List<RepositoryEntity> _productList = [];
+  int page = 1;
+
   HomeBloc({required this.useCases}) : super(HomeInitial()) {
     on<GetProductEvent>(_getProductsHandler);
   }
 
   Future<void> _getProductsHandler(GetProductEvent event, Emitter<HomeState> emit) async {
+   
+   
     emit(HomeLoading());
-    final result = await useCases.call();
+    if (event.isPagination) {
+      page++;
+    }
+    final result = await useCases.call(PageParams(page: page));
 
     try {
       result.fold(
         (error) => emit(const HomeErrorState(message: "Something went wrong")),
-        (productList) => emit(HomeLoadedState(productList)),
+        (productList) {
+          _productList.addAll(productList);
+          emit(HomeLoadedState(_productList));
+        },
       );
     } catch (e) {
       const HomeErrorState(message: "Something went wrong");

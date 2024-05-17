@@ -12,9 +12,9 @@ class HomeRepositoryImpl implements HomeRepository {
 
   HomeRepositoryImpl(this._dataSrc);
   @override
-  ResultFuture<List<RepositoryEntity>> getRepositories() async {
+  ResultFuture<List<RepositoryEntity>> getRepositories(int page) async {
     try {
-      final result = await _dataSrc.getRepositories();
+      final result = await _dataSrc.getRepositories(page);
       return Right(result);
     } on ApiException catch (e) {
       return Left(ApiFailure.fromException(e));

@@ -5,5 +5,5 @@ import '../../../../../../core/utils/typedef.dart';
 abstract class HomeRepository {
   const HomeRepository();
 
-  ResultFuture<List<RepositoryEntity>> getRepositories();
+  ResultFuture<List<RepositoryEntity>> getRepositories(int page);
 }

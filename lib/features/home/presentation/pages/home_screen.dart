@@ -12,9 +12,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late ScrollController _scrollController;
+  int currentPage = 1;
+  double boundaryOffset = 0.5;
+
   @override
   void initState() {
-    context.read<HomeBloc>().add(const GetProductEvent());
+    _scrollController = ScrollController();
+
+    _scrollController.addListener(() {
+      var nextPageTrigger = _scrollController.position.maxScrollExtent;
+
+      if (_scrollController.position.pixels > nextPageTrigger) {
+        context.read<HomeBloc>().add(const GetProductEvent(true));
+      }
+    });
+
+    context.read<HomeBloc>().add(const GetProductEvent(false));
     super.initState();
   }
 
@@ -37,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           if (state is HomeLoadedState) {
             return ListView.builder(
+              controller: _scrollController,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               itemCount: state.repositories.length,
               itemBuilder: (_, index) {
@@ -51,5 +66,44 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
+  }
+}
+
+class PaginationScrollController {
+  late ScrollController scrollController;
+  bool isLoading = false;
+  bool stopLoading = false;
+  int currentPage = 1;
+  double boundaryOffset = 0.5;
+  late Function loadAction;
+
+  void init({Function? initAction, required Function loadAction}) {
+    if (initAction != null) {
+      initAction();
+    }
+    this.loadAction = loadAction;
+    scrollController = ScrollController()..addListener(scrollListener);
+  }
+
+  void dispose() {
+    scrollController.removeListener(scrollListener);
+    scrollController.dispose();
+  }
+
+  void scrollListener() {
+    if (!stopLoading) {
+      //load more data
+      if (scrollController.offset >= scrollController.position.maxScrollExtent * boundaryOffset && !isLoading) {
+        isLoading = true;
+        loadAction().then((shouldStop) {
+          isLoading = false;
+          currentPage++;
+          boundaryOffset = 1 - 1 / (currentPage * 2);
+          if (shouldStop == true) {
+            stopLoading = true;
+          }
+        });
+      }
+    }
   }
 }

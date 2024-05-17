@@ -8,5 +8,6 @@ abstract class HomeEvent extends Equatable {
 }
 
 class GetProductEvent extends HomeEvent {
-  const GetProductEvent();
+  final bool isPagination;
+  const GetProductEvent(this.isPagination);
 }
