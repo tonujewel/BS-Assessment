@@ -1,7 +1,7 @@
-import 'package:bs_assessment/features/home/domain/entities/repository_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../domain/entities/repository_entity.dart';
 import '../../domain/usecases/get_repository_usecases.dart';
 
 part 'home_event.dart';
@@ -14,12 +14,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   int page = 1;
 
   HomeBloc({required this.useCases}) : super(HomeInitial()) {
-    on<GetProductEvent>(_getProductsHandler);
+    on<GetProductEvent>(_getRepositoryHandler);
   }
 
-  Future<void> _getProductsHandler(GetProductEvent event, Emitter<HomeState> emit) async {
-   
-   
+  Future<void> _getRepositoryHandler(GetProductEvent event, Emitter<HomeState> emit) async {
     emit(HomeLoading());
     if (event.isPagination) {
       page++;
