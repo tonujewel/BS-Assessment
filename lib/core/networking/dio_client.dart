@@ -8,6 +8,10 @@ import 'package:dio/dio.dart';
 class DioClient {
   static const int timeoutDuration = 60;
 
+  final Dio _dio = Dio();
+
+// _dio.
+
   Map<String, dynamic>? header = {
     'Accept': 'application/json',
     'Content-Type': 'application/vnd.github+json',
@@ -21,8 +25,12 @@ class DioClient {
     Map<String, dynamic>? params,
   }) async {
     try {
-      var response = await Dio()
-          .get(url, options: Options(headers: header, contentType: 'application/json'), queryParameters: params)
+      var response = await _dio
+          .get(
+            url,
+            options: Options(headers: header, contentType: 'application/json'),
+            queryParameters: params,
+          )
           .timeout(const Duration(seconds: timeoutDuration));
       printResponse(url, "${header ?? ""}", "", "$response");
 
@@ -38,7 +46,7 @@ class DioClient {
   Future<dynamic> post({required String url, Map<String, dynamic>? params, dynamic body}) async {
     var payload = json.encode(body);
     try {
-      var response = await Dio()
+      var response = await _dio
           .post(
             url,
             options: Options(headers: header),
@@ -63,7 +71,7 @@ class DioClient {
       dynamic body}) async {
     var payload = json.encode(body);
     try {
-      var response = await Dio()
+      var response = await _dio
           .patch(url, options: Options(headers: header), queryParameters: params, data: payload)
           .timeout(const Duration(seconds: timeoutDuration));
       printResponse(url, "${header ?? ""}", "$body", "$response");
@@ -83,7 +91,7 @@ class DioClient {
       dynamic body}) async {
     var payload = json.encode(body);
     try {
-      var response = await Dio()
+      var response = await _dio
           .delete(url, options: Options(headers: header), queryParameters: params, data: payload)
           .timeout(const Duration(seconds: timeoutDuration));
       printResponse(url, "${header ?? ""}", "$body", "$response");
@@ -111,7 +119,7 @@ class DioClient {
     }
 
     try {
-      var response = await Dio()
+      var response = await _dio
           .post(url, options: Options(headers: header), queryParameters: params, data: formData)
           .timeout(const Duration(seconds: timeoutDuration));
       printResponse(url, "$header ", "$body", "$response");
@@ -137,7 +145,7 @@ class DioClient {
     }
 
     try {
-      var response = await Dio()
+      var response = await _dio
           .post(url, options: Options(headers: header), queryParameters: params, data: formData)
           .timeout(const Duration(seconds: timeoutDuration));
       printResponse(url, "$header ", "$body", "$response");
@@ -153,7 +161,7 @@ class DioClient {
     log("URL==> $url");
 
     try {
-      var response = await Dio()
+      var response = await _dio
           .download(
             url,
             fileName,

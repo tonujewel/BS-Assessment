@@ -1,3 +1,4 @@
+import 'package:bs_assessment/core/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/custom_network_image.dart';
@@ -34,6 +35,10 @@ class DetailsScreen extends StatelessWidget {
                 Text(
                   data.owner.login,
                   style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Last Update : ${AppUtils.getDateTime(data.updatedAt)}",
                 ),
                 const SizedBox(height: 10),
                 Text(

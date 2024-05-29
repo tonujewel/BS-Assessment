@@ -12,24 +12,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late ScrollController _scrollController;
-  int currentPage = 1;
-  double boundaryOffset = 0.5;
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
-    _scrollController = ScrollController();
-
-    _scrollController.addListener(() {
-      var nextPageTrigger = _scrollController.position.maxScrollExtent;
-
-      if (_scrollController.position.pixels > nextPageTrigger) {
-        context.read<HomeBloc>().add(const GetProductEvent(true));
-      }
-    });
-
-    context.read<HomeBloc>().add(const GetProductEvent(false));
+    context.read<HomeBloc>().add(const GetProductEvent());
     super.initState();
+
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+    if (currentScroll == maxScroll) {
+      context.read<HomeBloc>().add(const GetProductEvent());
+    }
   }
 
   @override
@@ -44,31 +42,31 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text("Flutter Repositories"),
       ),
-      body: BlocConsumer<HomeBloc, HomeState>(
-        listener: (context, state) {
-          if (state is HomeErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
-          }
-        },
+      body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          if (state is HomeLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (state is HomeLoadedState) {
-            return ListView.builder(
-              controller: _scrollController,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              itemCount: state.repositories.length,
-              itemBuilder: (_, index) {
-                return ProductWidget(
-                  data: state.repositories[index],
+          switch (state.status) {
+            case PostStatus.loading:
+              return const CircularProgressIndicator();
+            case PostStatus.success:
+              if (state.posts.isEmpty) {
+                return const Center(
+                  child: Text("No Posts"),
                 );
-              },
-            );
+              }
+              return ListView.builder(
+                controller: _scrollController,
+                itemCount: state.hasReachedMax ? state.posts.length : state.posts.length + 1,
+                itemBuilder: (BuildContext context, int index) {
+                  return index >= state.posts.length
+                      ? const LinearProgressIndicator()
+                      : ProductWidget(data: state.posts[index]);
+                },
+              );
+            case PostStatus.error:
+              return Center(
+                child: Text(state.errorMessage),
+              );
           }
-
-          return const SizedBox();
         },
       ),
     );
