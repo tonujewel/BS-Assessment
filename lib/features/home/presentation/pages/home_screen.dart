@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context, state) {
           switch (state.status) {
             case PostStatus.loading:
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             case PostStatus.success:
               if (state.posts.isEmpty) {
                 return const Center(

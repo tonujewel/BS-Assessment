@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:bs_assessment/features/home/data/models/repository_model.dart';
-
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/networking/api_url.dart';
 import '../../../../core/networking/dio_client.dart';
+import '../models/repository_model.dart';
 
 abstract class HomeDataSrc {
   Future<List<RepositoryModel>> getRepositories(int page);
